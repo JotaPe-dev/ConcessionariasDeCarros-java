@@ -1,0 +1,88 @@
+drop database javacrud;
+create database javacrud;
+use javacrud;
+
+select * from produto_tb;
+
+truncate table produto_tb;	
+
+DESCRIBE produto_tb;
+
+CREATE TABLE produto_tb (
+    id INT NOT NULL AUTO_INCREMENT,
+    pnome VARCHAR(250),
+    preco VARCHAR(250),
+    qtd VARCHAR(250),
+    PRIMARY KEY (id) 
+);
+
+
+create table login_tb(
+id int primary key auto_increment,
+login varchar(150),
+senha varchar(150)
+);
+
+insert into login_tb (login,senha)
+values
+("Admin","Admin987");
+
+create table venda_tb(
+id int primary key auto_increment,
+vanda varchar(150),
+dataV varchar(150)
+);
+
+
+CREATE TABLE IF NOT EXISTS venda (
+    id INT NOT NULL AUTO_INCREMENT,
+    data_venda VARCHAR(12) NOT NULL,
+    valor_venda VARCHAR(100) NOT NULL,
+    cliente VARCHAR(100) NOT NULL,
+    PRIMARY KEY (id)
+) ENGINE = InnoDB;
+
+ALTER TABLE venda
+    CHANGE COLUMN valor_venda valor_venda DECIMAL(10,2) NOT NULL;
+
+select * from venda;
+
+select * from produto_tb;
+
+truncate table venda;
+DELETE FROM venda WHERE id >= 8;
+
+
+ALTER TABLE venda ADD COLUMN id_produto INT;
+ALTER TABLE produto_tb MODIFY COLUMN preco DECIMAL(10, 2);
+ALTER TABLE produto_tb ADD modelo VARCHAR(100) NOT NULL;
+
+
+SELECT * FROM venda WHERE id_produto IS NULL;
+
+
+
+SELECT venda.id AS id_venda, 
+       produto_tb.pnome AS nome_produto, 
+       venda.cliente AS nome_cliente, 
+       venda.valor_venda
+FROM venda
+JOIN produto_tb ON venda.id_produto = produto_tb.id;
+
+SHOW TABLES;
+
+
+describe venda;
+
+INSERT INTO produto_tb (pnome, preco, qtd, modelo)
+VALUES 
+('Honda Civic', 120000.00, 10, 'Modelo A'),
+('Toyota Corolla', 110000.00, 5, 'Modelo B');	
+
+
+SELECT venda.id AS id_venda, 
+       produto_tb.pnome AS nome_produto, 
+       venda.cliente AS nome_cliente, 
+       venda.valor_venda
+FROM venda
+JOIN produto_tb ON venda.id_produto = produto_tb.id;
